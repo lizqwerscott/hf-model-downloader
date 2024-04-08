@@ -1,0 +1,41 @@
+[project]
+name = "hf-model-downloader"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "lizqwerscott", email = "lizqwerscott@163.com"},
+]
+dependencies = [
+    "huggingface-hub>=0.22.2",
+    "fastapi>=0.110.1",
+    "uvicorn>=0.29.0",
+    "pydantic>=2.6.4",
+]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.scripts]
+start = "python src/hf_model_downloader/main.py"
+
+[tool.pyright]
+include = ["src"]
+exclude = ["**/node_modules",
+    "**/__pycache__",
+    "src/experimental",
+    "src/typestubs",
+    ".venv"
+]
+ignore = ["src/oldstuff"]
+defineConstant = { DEBUG = true }
+stubPath = "src/stubs"
+
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+venvPath = "."
+venv = ".venv"
