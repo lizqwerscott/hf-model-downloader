@@ -38,6 +38,7 @@ def download_huggingface(repo_id: str, is_convert: bool, app: FastAPI):
     except Exception:
         app.state.my_global_state["downloads"][repo_id]["status"] = "derror"
         logging.error("{} download faild".format(repo_id))
+        return
 
     try:
         finish_dir_path = os.path.join(config.finish_dir, "{}-{}".format(person, name))
