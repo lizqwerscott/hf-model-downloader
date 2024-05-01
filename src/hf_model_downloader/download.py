@@ -35,9 +35,9 @@ def download_huggingface(repo_id: str, is_convert: bool, app: FastAPI):
         path = snapshot_download(repo_id, cache_dir=config.cache_dir)
         logging.info("{} download success: {}".format(repo_id, path))
         app.state.my_global_state["downloads"][repo_id]["status"] = "handle"
-    except Exception:
+    except Exception as err:
         app.state.my_global_state["downloads"][repo_id]["status"] = "derror"
-        logging.error("{} download faild".format(repo_id))
+        logging.error("{} download faild: {}".format(repo_id, err))
         return
 
     try:
@@ -51,6 +51,6 @@ def download_huggingface(repo_id: str, is_convert: bool, app: FastAPI):
             logging.info("copy finish: {}".format(finish_dir_path))
 
         app.state.my_global_state["downloads"][repo_id]["status"] = "finish"
-    except Exception:
+    except Exception as err:
         app.state.my_global_state["downloads"][repo_id]["status"] = "herror"
-        logging.error("handle download error: {}".format(path))
+        logging.error("handle download error: {}, {}".format(path, err))
